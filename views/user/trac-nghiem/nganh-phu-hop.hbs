@@ -1,0 +1,462 @@
+<div class="container mt-2 bg-light rounded-4">
+    {{> buoc-trac-nghiem currentStep=6}}
+    {{!-- Tabs kết quả --}}
+    <div class="custom-switch-tabs mb-4">
+        <button class="switch-tab active" data-tab="kqTracNghiem" type="button">Kết quả trắc nghiệm</button>
+        <button class="switch-tab" data-tab="nganhUocMo" type="button">Ngành học ước mơ</button>
+        <button class="switch-tab" data-tab="khaoSatCaNhan" type="button">Khảo sát cá nhân</button>
+    </div>
+    <div class="tab-content-custom">
+        <div class="tab-pane-custom show" id="tab-kqTracNghiem">
+            {{!-- Kết quả --}}
+            <div class="bg-white rounded-4 p-4 p-md-5">
+                <div class="tabs1">
+                    <h1 class="h3 mb-0">🎉 Kết quả trắc nghiệm của bạn</h1>
+                    <div class="mb-2 mt-2">Tổng điểm theo từng nhóm ngành:</div>
+                    <div class="d-flex align-items-center gap-2 mb-4 kq-nganh">
+                        <div class="mb-4 w-100" style="background: #f8f9fa; border-radius: 16px;">
+                            <div class="overflow-auto"
+                                style="min-height: 300px; width: 100%; display: flex; justify-content: center; align-items: center;">
+                                <div style="min-width: 600px; width: 100%; height: 400px;" class="chart-container">
+                                    <canvas id="nganhRadarChart" style="width: 100%; height: 100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- section 2 --}}
+                    <div class="row mt-4 align-items-stretch">
+                        <!-- Bảng xếp hạng nhóm ngành -->
+                        <div class="col-md-7 mb-4 h-100">
+                            <div class="h-100 d-flex flex-column justify-content-center"
+                                style="background: #f8f9fa; border-radius: 16px;">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered align-middle mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th scope="col" class="text-center">Xếp hạng</th>
+                                                <th scope="col">Nhóm ngành</th>
+                                                <th scope="col">Điểm của bạn</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="table-success">
+                                                <td class="text-center">1</td>
+                                                <td>
+                                                    Kinh doanh & Quản lý<br>
+                                                    <span class="text-muted small">(Business & Management)</span>
+                                                </td>
+                                                <td>37 điểm</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">2</td>
+                                                <td>
+                                                    Kỹ thuật & Công nghệ<br>
+                                                    <span class="text-muted small">(Engineering & Technology)</span>
+                                                </td>
+                                                <td>34 điểm</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">3</td>
+                                                <td>
+                                                    Nghệ thuật & Sáng tạo<br>
+                                                    <span class="text-muted small">(Arts & Creativity)</span>
+                                                </td>
+                                                <td>31 điểm</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">4</td>
+                                                <td>
+                                                    Khoa học & Nghiên cứu<br>
+                                                    <span class="text-muted small">(Science & Research)</span>
+                                                </td>
+                                                <td>28 điểm</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">5</td>
+                                                <td>
+                                                    Quân đội, Công an, Hàng không<br>
+                                                    <span class="text-muted small">(Military, Police & Aviation)</span>
+                                                </td>
+                                                <td>26 điểm</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">6</td>
+                                                <td>
+                                                    Giáo dục & Công tác xã hội<br>
+                                                    <span class="text-muted small">(Education & Social Work)</span>
+                                                </td>
+                                                <td>22 điểm</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Huy chương nhóm ngành cao nhất -->
+                        <div class="col-md-5 d-flex align-items-center justify-content-center h-100">
+                            <div class="w-100 text-center h-100 d-flex flex-column justify-content-center"
+                                style="background: #f8f9fa; border-radius: 16px; padding: 24px;">
+                                <!-- SVG huy chương và nội dung giữ nguyên -->
+                                <div style="font-weight: bold; font-size: 20px; margin-bottom: 8px;">Nhóm ngành có điểm
+                                    cao nhất
+                                </div>
+                                <hr style="margin: 0 auto 24px auto; width: 90%; border-top: 1.5px solid #000000;">
+                                <div style="display: flex; flex-direction: column; align-items: center;">
+                                    <svg width="160" height="180" viewBox="0 0 160 180" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Ribbon -->
+                                        <rect x="48" y="120" width="20" height="50" rx="8" fill="#4F46E5" />
+                                        <rect x="92" y="120" width="20" height="50" rx="8" fill="#EF4444" />
+                                        <rect x="70" y="120" width="20" height="50" rx="8" fill="#fff" />
+                                        <!-- Medal -->
+                                        <circle cx="80" cy="80" r="70" fill="#FFD700" stroke="#F7B500"
+                                            stroke-width="8" />
+                                        <circle cx="80" cy="80" r="58" fill="#FFEB99" />
+                                        <!-- Medal border effect -->
+                                        <ellipse cx="80" cy="80" rx="54" ry="54" fill="#FFE066" />
+                                        <!-- Score -->
+                                        <text x="80" y="95" text-anchor="middle" font-size="56" font-weight="bold"
+                                            fill="#A97B1C" font-family="inherit">37</text>
+                                        <text x="80" y="120" text-anchor="middle" font-size="18" font-weight="bold"
+                                            fill="#A97B1C" font-family="inherit">điểm</text>
+                                    </svg>
+                                    <div class="mt-4 fw-bold" style="color: #2563eb; font-size: 22px;">Kinh doanh & Quản
+                                        lý
+                                    </div>
+                                    <div style="color: #2563eb; font-size: 16px; font-weight: 500;">(Business &
+                                        Management)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- section 3 --}}
+                    <div class="row mt-5">
+                        <div class="col-12 d-flex flex-column">
+                            <div class="fw-bold mb-3" style="font-size: 22px; display: flex; gap: 8px;">
+                                <span style="font-size: 20px;">🎯</span> Nhóm ngành nghề phù hợp với bạn
+                            </div>
+                            <div class="hexagon-career d-flex flex-column align-items-center justify-content-center">
+                                <img src="/images/svg/business-management.svg" alt="Business & Management"
+                                    style="width: 90px; margin-bottom: 12px;" />
+                                <div class="fw-bold" style="color: #fff; font-size: 18px;">Kinh doanh & Quản lý</div>
+                                <div style="color: #fff; font-size: 15px;">(Business & Management)</div>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- section 4 --}}
+                    <div class="row mt-5">
+                        <div class="col-12"><div class="rounded-4 p-4 p-md-5 d-flex flex-column gap-3" style="background: #f8f9ff; border: 1.5px solid #e0e7ef;">
+                                <table class="table align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 28%; font-weight: 600;">Nhóm ngành phù hợp với bạn</th>
+                                            <th style="width: 14%; font-weight: 600;">Điểm của bạn</th>
+                                            <th style="width: 58%; font-weight: 600;">Mô tả</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div style="font-weight: 600;">Kinh doanh & Quản lý<br><span class="text-muted small">(Business & Management)</span></div>
+                                            </td>
+                                            <td>
+                                                <span style="font-weight: 600; font-size: 18px; color: #5EB47C;">37 điểm</span>
+                                            </td>
+                                            <td>
+                                                <div style="font-weight: 600; margin-bottom: 6px;">Yêu cầu phù hợp:</div>
+                                                <ul style="margin-bottom: 8px; padding-left: 18px;">
+                                                    <li>Khả năng lãnh đạo: Cần có khả năng quản lý đội nhóm, ra quyết định, và điều phối công việc hiệu quả.</li>
+                                                    <li>Kỹ năng giao tiếp: Có khả năng giao tiếp tốt, thuyết phục và tạo mối quan hệ trong môi trường công việc.</li>
+                                                    <li>Tư duy chiến lược và tổ chức: Năng lực phân tích, lập kế hoạch và tổ chức công việc để đạt được mục tiêu dài hạn.</li>
+                                                    <li>Tinh thần khởi nghiệp & đổi mới: Sự sáng tạo và dám đổi mới trong kinh doanh.</li>
+                                                    <li>Kỹ năng giải quyết vấn đề: Khả năng đưa ra giải pháp cho các vấn đề kinh doanh, tài chính và nhân sự.</li>
+                                                </ul>
+                                                <div style="font-weight: 600; margin-bottom: 6px;">Phù hợp với học sinh có:</div>
+                                                <ul style="padding-left: 18px;">
+                                                    <li>Tính cách quyết đoán, mạnh mẽ, sáng tạo và yêu thích sự đổi mới.</li>
+                                                    <li>Khả năng làm việc nhóm và xây dựng mối quan hệ tốt với người khác.</li>
+                                                    <li>Sự quan tâm đến việc tạo ra giá trị và phát triển kinh doanh.</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- section 5 --}}
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="rounded-4 d-flex flex-column gap-3" >
+                                <div class="d-flex align-items-center gap-2 mb-2" style="font-size: 28px; font-weight: 700; color: #222;">
+                                    <span style="font-size: 32px;">🎯</span> Tiếp theo, bạn nên làm gì?
+                                </div>
+                                <div style="font-size: 18px; color: #222; font-weight: 500; margin-bottom: 8px;">
+                                    <span style="font-size: 22px;">👉</span> Chọn ngành cụ thể trong nhóm "Kinh doanh & Quản lý" để:
+                                </div>
+                                <ul style="font-size: 17px; color: #222; margin-left: 32px;">
+                                    <li>Xem danh sách các trường đại học đào tạo chuyên ngành.</li>
+                                    <li>So sánh chỉ tiêu tuyển sinh năm gần nhất, Phương thức xét tuyển và điểm chuẩn đầu vào các chuyên ngành.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end gap-2 mt-5">
+                    <a href="/trac-nghiem/bat-dau" class="btn btn-outline-secondary px-4">Quay lại</a>
+                    <a href="/trac-nghiem/ky-nang-kha-nang" class="btn btn-success px-4">Tiếp tục</a>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane-custom" id="tab-nganhUocMo">
+            <!-- Nội dung tab Ngành học ước mơ -->
+            <div class="bg-white rounded-4 p-4 p-md-5">
+                <h2>Ngành học ước mơ</h2>
+                <!-- Thêm nội dung cho tab này -->
+            </div>
+        </div>
+        <div class="tab-pane-custom" id="tab-khaoSatCaNhan">
+            <!-- Nội dung tab Khảo sát cá nhân -->
+            <div class="bg-white rounded-4 p-4 p-md-5">
+                <h2>Khảo sát cá nhân</h2>
+                <!-- Thêm nội dung cho tab này -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .kq-nganh {
+        background: #f8f9fa;
+        border-radius: 16px;
+        padding: 24px;
+    }
+
+    .hexagon-career {
+        width: 260px;
+        height: 300px;
+        background: #4f8cff;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        box-shadow: 0 4px 24px 0 rgba(79, 140, 255, 0.10);
+    }
+
+    @media (max-width: 768px) {
+        .chart-container {
+            height: 250px !important;
+        }
+
+        .kq-nganh {
+            padding: 12px;
+        }
+
+        .kq-nganh>div {
+            min-height: 300px !important;
+        }
+    }
+
+    .custom-switch-tabs {
+        display: flex;
+        background: #f3f3f3;
+        border-radius: 999px;
+        padding: 6px;
+        width: fit-content;
+        margin: 0 auto 24px auto;
+        box-shadow: 0 2px 8px 0 rgba(79, 140, 255, 0.08);
+    }
+
+    .switch-tab {
+        border: none;
+        background: transparent;
+        color: #5EB47C;
+        font-weight: 600;
+        font-size: 17px;
+        padding: 10px 32px;
+        border-radius: 999px;
+        transition: all 0.2s;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .switch-tab.active {
+        background: #5EB47C;
+        color: #fff;
+        box-shadow: 0 2px 8px 0 rgba(79, 140, 255, 0.12);
+    }
+
+    .tab-pane-custom {
+        display: none;
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: absolute;
+        width: 100%;
+    }
+
+    .tab-pane-custom.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        position: relative;
+    }
+
+    /* Căn dọc văn bản bảng section 4 lên trên */
+    table th, table td {
+        vertical-align: top !important;
+    }
+    .table>:not(caption)>*>*{
+        background: #f8f9ff !important;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+    // Form validation
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                } else {
+                    event.preventDefault();
+                    window.location.href = '/trac-nghiem/ky-nang-kha-nang';
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+
+    // Add click handlers for radio buttons
+    document.querySelectorAll('.form-check-input').forEach(radio => {
+        radio.addEventListener('change', function () {
+            // Remove selected class from all siblings
+            const parentDiv = this.closest('.d-flex.flex-column');
+            parentDiv.querySelectorAll('.form-check').forEach(check => {
+                check.classList.remove('selected');
+            });
+
+            // Add selected class to parent form-check
+            this.closest('.form-check').classList.add('selected');
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('nganhRadarChart').getContext('2d');
+
+        // Cấu hình màu sắc
+        const colors = {
+            business: '#007bff',
+            engineering: '#28a745',
+            arts: '#dc3545',
+            science: '#6f42c1',
+            military: '#17a2b8',
+            education: '#ffc107'
+        };
+
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Kinh doanh & Quản lý',
+                    'Kỹ thuật & Công nghệ',
+                    'Nghệ thuật & Sáng tạo',
+                    'Khoa học & Nghiên cứu',
+                    'Quân đội, Công an, Hàng không',
+                    'Giáo dục & Công tác xã hội'
+                ],
+                datasets: [{
+                    label: 'Tổng điểm',
+                    data: [38, 28, 32, 25, 18, 22],
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: Object.values(colors),
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: Object.values(colors),
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleFont: {
+                            size: 14
+                        },
+                        bodyFont: {
+                            size: 13
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 40,
+                        pointLabels: {
+                            font: {
+                                size: function () {
+                                    return window.innerWidth < 768 ? 11 : 13;
+                                },
+                                weight: '500'
+                            },
+                            color: Object.values(colors),
+                            padding: function () {
+                                return window.innerWidth < 768 ? 15 : 20;
+                            }
+                        },
+                        ticks: {
+                            stepSize: 10,
+                            backdropColor: 'transparent',
+                            color: 'rgba(0, 0, 0, 0.5)',
+                            font: {
+                                size: function () {
+                                    return window.innerWidth < 768 ? 9 : 11;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('.switch-tab').click(function () {
+            // Remove active class from all tabs
+            $('.switch-tab').removeClass('active');
+            // Add active class to clicked tab
+            $(this).addClass('active');
+
+            // Hide all tab panes with transition
+            $('.tab-pane-custom').removeClass('show');
+
+            // Show the selected tab pane with transition
+            setTimeout(() => {
+                $('#tab-' + $(this).data('tab')).addClass('show');
+            }, 100);
+        });
+    });
+</script>
