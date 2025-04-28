@@ -25,14 +25,26 @@ pool.getConnection()
         dbStatus.isConnected = true;
         dbStatus.message = 'Kết nối database thành công!';
         dbStatus.error = null;
-        console.log(dbStatus.message);
+        console.log('=== Thông tin kết nối database ===');
+        console.log('Host:', process.env.DB_HOST);
+        console.log('Port:', process.env.DB_PORT);
+        console.log('Database:', process.env.DB_NAME);
+        console.log('User:', process.env.DB_USER);
+        console.log('Trạng thái:', dbStatus.message);
+        console.log('===============================');
         connection.release();
     })
     .catch(err => {
         dbStatus.isConnected = false;
         dbStatus.message = 'Lỗi kết nối database';
         dbStatus.error = err.message;
-        console.error('Lỗi kết nối:', err);
+        console.error('=== Lỗi kết nối database ===');
+        console.error('Host:', process.env.DB_HOST);
+        console.error('Port:', process.env.DB_PORT);
+        console.error('Database:', process.env.DB_NAME);
+        console.error('User:', process.env.DB_USER);
+        console.error('Lỗi:', err.message);
+        console.error('===========================');
     });
 
 module.exports = {
