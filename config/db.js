@@ -30,7 +30,9 @@ pool.getConnection()
         console.log('Port:', process.env.DB_PORT);
         console.log('Database:', process.env.DB_NAME);
         console.log('User:', process.env.DB_USER);
+        console.log('Password:', process.env.DB_PASSWORD);
         console.log('Trạng thái:', dbStatus.message);
+        console.log('Lưu ý: Thông tin mật khẩu chỉ nên được log trong môi trường development');
         console.log('===============================');
         connection.release();
     })
@@ -43,7 +45,9 @@ pool.getConnection()
         console.error('Port:', process.env.DB_PORT);
         console.error('Database:', process.env.DB_NAME);
         console.error('User:', process.env.DB_USER);
+        console.error('Password:', process.env.DB_PASSWORD);
         console.error('Lỗi:', err.message);
+        console.error('Lưu ý: Thông tin mật khẩu chỉ nên được log trong môi trường development');
         console.error('===========================');
     });
 
