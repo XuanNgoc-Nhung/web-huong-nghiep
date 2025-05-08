@@ -493,6 +493,104 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('nganhRadarChart').getContext('2d');
+
+        // Cấu hình màu sắc
+        const colors = {
+            business: '#007bff',
+            engineering: '#28a745',
+            arts: '#dc3545',
+            science: '#6f42c1',
+            military: '#17a2b8',
+            education: '#ffc107'
+        };
+
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Kinh doanh & Quản lý',
+                    'Kỹ thuật & Công nghệ',
+                    'Nghệ thuật & Sáng tạo',
+                    'Khoa học & Nghiên cứu',
+                    'Quân đội, Công an, Hàng không',
+                    'Giáo dục & Công tác xã hội'
+                ],
+                datasets: [{
+                    label: 'Tổng điểm',
+                    data: [37, 34, 31, 28, 26, 22],
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: Object.values(colors),
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: Object.values(colors),
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleFont: {
+                            size: 14
+                        },
+                        bodyFont: {
+                            size: 13
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 40,
+                        pointLabels: {
+                            font: {
+                                size: function () {
+                                    return window.innerWidth < 768 ? 11 : 13;
+                                },
+                                weight: '500'
+                            },
+                            color: Object.values(colors),
+                            padding: function () {
+                                return window.innerWidth < 768 ? 15 : 20;
+                            }
+                        },
+                        ticks: {
+                            stepSize: 10,
+                            backdropColor: 'transparent',
+                            color: 'rgba(0, 0, 0, 0.5)',
+                            font: {
+                                size: function () {
+                                    return window.innerWidth < 768 ? 9 : 11;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+    
+    </script>
 
 {{> user/modal-privacy-policy }}
 {{> user/modal-payment }}
