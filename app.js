@@ -27,7 +27,8 @@ const hbs = exphbs.create({
     layoutsDir: path.join(__dirname, 'views', 'layouts'),
     partialsDir: [
         path.join(__dirname, 'views', 'partials'),
-        path.join(__dirname, 'views', 'user', 'trac-nghiem')
+        path.join(__dirname, 'views', 'user', 'trac-nghiem'),
+        path.join(__dirname, 'views', 'layouts')
     ],
     helpers: {
         json: function(context) {
