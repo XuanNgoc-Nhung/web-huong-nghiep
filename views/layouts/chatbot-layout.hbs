@@ -53,6 +53,7 @@
         transform: translate(100%, 100%) scale(0.1);
         transform-origin: bottom right;
         transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        z-index: 1002;
     }
 
     .chat-window.active {
@@ -360,18 +361,22 @@
         const chatMessages = document.getElementById('chatMessages');
         const suggestedQuestions = document.getElementById('suggestedQuestions');
         const floatingChatBubble = document.getElementById('floatingChatBubble');
+        let hasChatBeenOpened = false;
 
         // Show floating chat bubble
         setTimeout(() => {
-            floatingChatBubble.classList.add('active');
-            // Auto hide after 3 seconds
-            setTimeout(() => {
-                floatingChatBubble.classList.remove('active');
-            }, 10000);
+            if (!hasChatBeenOpened) {
+                floatingChatBubble.classList.add('active');
+                // Auto hide after 3 seconds
+                setTimeout(() => {
+                    floatingChatBubble.classList.remove('active');
+                }, 5000);
+            }
         }, 1000);
 
         // Hide floating chat bubble when clicking the chat button
         chatBotButton.addEventListener('click', function() {
+            hasChatBeenOpened = true;
             floatingChatBubble.classList.remove('active');
             if (chatWindow.style.display === 'flex') {
                 chatWindow.classList.remove('active');
