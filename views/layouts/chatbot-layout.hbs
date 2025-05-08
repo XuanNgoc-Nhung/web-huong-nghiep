@@ -102,6 +102,17 @@
         border-radius: 20px;
         outline: none;
         font-size: 0.85rem;
+        transition: all 0.3s ease;
+    }
+
+    .chat-input input.is-invalid {
+        border-color: #dc3545;
+        background-color: #fff8f8;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+
+    .chat-input input.is-invalid::placeholder {
+        color: #dc3545;
     }
 
     .chat-input button {
@@ -423,7 +434,13 @@
 
         // Send message
         function sendUserMessage(message) {
-            if (!message) return;
+            if (!message || message.trim() === '') {
+                messageInput.classList.add('is-invalid');
+                setTimeout(() => {
+                    messageInput.classList.remove('is-invalid');
+                }, 2000);
+                return;
+            }
             // Add user message
             const userMessageDiv = document.createElement('div');
             userMessageDiv.className = 'mb-2 text-end';
@@ -455,6 +472,11 @@
             if (message) {
                 sendUserMessage(message);
                 messageInput.value = '';
+            } else {
+                messageInput.classList.add('is-invalid');
+                setTimeout(() => {
+                    messageInput.classList.remove('is-invalid');
+                }, 2000);
             }
         });
 
@@ -465,6 +487,11 @@
                 if (message) {
                     sendUserMessage(message);
                     messageInput.value = '';
+                } else {
+                    messageInput.classList.add('is-invalid');
+                    setTimeout(() => {
+                        messageInput.classList.remove('is-invalid');
+                    }, 2000);
                 }
             }
         });
