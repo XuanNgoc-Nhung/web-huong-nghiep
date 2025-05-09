@@ -248,6 +248,8 @@
         border-radius: 12px;
         width: fit-content;
         margin-bottom: 2px;
+        min-height: 40px;
+        justify-content: center;
     }
 
     .typing-indicator span {
@@ -258,6 +260,7 @@
         display: inline-block;
         margin: 0 2px;
         opacity: 0.4;
+        vertical-align: middle;
     }
 
     .typing-indicator span:nth-child(1) {
@@ -432,6 +435,25 @@
             chatMessages.appendChild(botMessageDiv);
         }
 
+        // Show typing indicator
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message-bot';
+            typingDiv.innerHTML = `
+                <img src="/images/svg/icon-chat.svg" class="bot-avatar" alt="Bot">
+                <div>
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return typingDiv;
+        }
+
         // Send message
         function sendUserMessage(message) {
             if (!message || message.trim() === '') {
@@ -451,8 +473,15 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
             // Hide suggested questions after first message
             suggestedQuestions.style.display = 'none';
+            
+            // Show typing indicator
+            const typingIndicator = showTypingIndicator();
+            
             // Simulate bot response (replace with real logic)
             setTimeout(() => {
+                // Remove typing indicator
+                typingIndicator.remove();
+                
                 const botMessageDiv = document.createElement('div');
                 botMessageDiv.className = 'chat-message-bot';
                 botMessageDiv.innerHTML = `
@@ -463,7 +492,7 @@
                 `;
                 chatMessages.appendChild(botMessageDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1000);
+            }, 1000); // Increased delay to 2 seconds to show typing animation
         }
 
         // Send message on button click
